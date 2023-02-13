@@ -2,8 +2,10 @@
 // All Data
 index = async (req, res) => {
     try {
-
-        return res.send('HELLO WORLD!');
+        return res.render('dashboard', {
+            layout: 'layouts/main',
+            title: 'Halaman Dahsboard'
+        });
     } catch (error) {
         // If Error
         res.status(500).send({error});
