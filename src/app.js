@@ -4,11 +4,19 @@ const {setupLogging} = require('./config/logging.config');
 const {setupRateLimit} = require("./config/ratelimit.config");
 const {ROUTES} = require("./routes/api.route");
 const {setupProxies} = require("./config/proxy.config");
+const path = require('path');
+const expressLayouts = require('express-ejs-layouts');
 
 // Env
 require('dotenv').config();
 
 const app = express();
+
+// Setup ejs
+app.set('view engine', 'ejs');
+
+// Set views folder
+app.set('views', path.join(__dirname, '../src/views'));
 
 // Logging
 setupLogging(app);
@@ -16,6 +24,7 @@ setupLogging(app);
 // Set up method override
 app.use(methodOverride('_method'));
 
+app.use(expressLayouts);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
