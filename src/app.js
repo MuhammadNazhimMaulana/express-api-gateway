@@ -41,6 +41,10 @@ setupProxies(app, ROUTES);
 const auth_route = require('./routes/auth.route');
 app.use('/auth', auth_route);
 
+// Route Endpoint
+const endpoint = require('./routes/endpoints.route');
+app.use('/endpoint', endpoint);
+
 // Route Main
 const main_route = require('./routes/main.route');
 app.use('/', main_route);
