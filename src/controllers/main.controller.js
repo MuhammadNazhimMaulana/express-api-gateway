@@ -1,5 +1,5 @@
 
-// All Data
+// Dashboard
 index = async (req, res) => {
     try {
         return res.render('dashboard', {
