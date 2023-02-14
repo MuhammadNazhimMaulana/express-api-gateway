@@ -34,6 +34,10 @@ setupRateLimit(app, ROUTES);
 // Routes Gateway
 setupProxies(app, ROUTES);
 
+// Route Auth
+const auth_route = require('./routes/auth.route');
+app.use('/auth', auth_route);
+
 // Route Main
 const main_route = require('./routes/main.route');
 app.use('/', main_route);
