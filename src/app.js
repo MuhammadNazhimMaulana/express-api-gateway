@@ -10,6 +10,9 @@ const expressLayouts = require('express-ejs-layouts');
 // Env
 require('dotenv').config();
 
+// Database Connection
+require('./config/db.config');
+
 const app = express();
 
 // Setup ejs
