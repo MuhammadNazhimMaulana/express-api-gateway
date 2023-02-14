@@ -14,14 +14,21 @@
     <!-- Custom Css -->
     <!-- <link rel="stylesheet" href="css/style.css"> -->
     
-    <title><%= title %> </title>
+    <title><%= title %></title>
   </head>
-  <body class="bg-dark text-white">
+  <body class="bg-dark">
 
-    <div class="container">
-        <!-- Isi Halaman Lain -->
-        <%- body %> 
-    </div>
+    <section class="container mt-5">
+        <div class="row content d-flex justify-content-center align-items-center">
+            <div class="col-md-5">
+                <div class="box shadow bg-white p-4">
+                    <h3 class="mb-4 text-center fs-1"><%= title %> Form</h3>
+                    <!-- Isi Halaman Lain -->
+                    <%- body %> 
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Optional JavaScript; choose one of the two! -->
 
