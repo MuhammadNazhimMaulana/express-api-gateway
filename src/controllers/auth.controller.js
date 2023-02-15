@@ -45,8 +45,11 @@ loginProcess = async (req, res) => {
         // Preparing Token
         const token = createToken(user);
 
+        // Add Auth Token
+        res.cookie('AuthToken', token);
+
         // Update Data
-        const result = await User.update(
+        await User.update(
             {
               token: token,
             },
@@ -63,8 +66,40 @@ loginProcess = async (req, res) => {
     }
 }
 
+// Logout
+logout = async (req, res) => {
+    try {
+
+        // Finding User
+        const user = await User.findOne({ where: { token: req.user } });
+
+        // Checking Email
+        if(!user) return res.status(500).send('User Not Found');
+
+        // Clear Cookie
+        res.clearCookie('AuthToken');
+
+        // Update Data
+        await User.update(
+            {
+              token: "",
+            },
+            {
+              where: { token: req.user },
+            }
+        );
+        
+        res.redirect('/auth/login');
+    } catch (error) {
+        console.log(error);
+        // If Error
+        res.status(500).send({error});
+    }
+}
+
 
 module.exports = {
     login,
-    loginProcess
+    loginProcess,
+    logout
 }

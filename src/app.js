@@ -6,6 +6,7 @@ const {ROUTES} = require("./routes/api.route");
 const {setupProxies} = require("./config/proxy.config");
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
+const cookieParser = require('cookie-parser');
 
 // Env
 require('dotenv').config();
@@ -23,6 +24,9 @@ app.set('views', path.join(__dirname, '../src/views'));
 
 // Logging
 setupLogging(app);
+
+// Use Cookie Parser
+app.use(cookieParser());
 
 // Set up method override
 app.use(methodOverride('_method'));
