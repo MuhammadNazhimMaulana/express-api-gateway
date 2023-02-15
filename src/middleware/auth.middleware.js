@@ -8,10 +8,13 @@ const authenticateJWT = (req, res, next) => {
     if (req.user) {
         const token = req.user;
   
-        jwt.verify(token, accessTokenSecret, (err, user) => {
+        jwt.verify(token, accessTokenSecret, (err) => {
             if (err) {
-                return res.sendStatus(403);
+                res.redirect('/auth/login');
             }
+
+            // Log in Sign
+            req.loggedIn = true;
 
             next();
         });
