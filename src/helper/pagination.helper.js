@@ -30,12 +30,13 @@ paginate = async (req, res, model) => {
         })
 
         return {
-            result: result,
+            data: result,
             page:page,
             limit: limit,
             totalPage: totalPage,
             totalRows: totalRows
         };
+
 
     } catch (error) {
         // If Error
