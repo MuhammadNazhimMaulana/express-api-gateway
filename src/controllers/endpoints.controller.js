@@ -6,7 +6,7 @@ const {Op} = require("sequelize");
 index = async (req, res) => {
     try {
         // Datas
-        const result = Pagination.paginate(req, res, Route);
+        const result = await Pagination.paginate(req, res, Route);
 
         // Return View
         return res.render('endpoints/index', {
