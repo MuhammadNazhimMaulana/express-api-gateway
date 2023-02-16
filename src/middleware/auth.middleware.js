@@ -2,9 +2,7 @@
 const jwt = require("jsonwebtoken");
 const accessTokenSecret = 'secretkeyappearshere';
 
-const authenticateJWT = (req, res, next) => {
-    const authHeader = req.headers.authorization;
-  
+const authenticateJWT = (req, res, next) => { 
     if (req.user) {
         const token = req.user;
   
@@ -19,7 +17,7 @@ const authenticateJWT = (req, res, next) => {
             next();
         });
     } else {
-        res.sendStatus(401);
+        res.redirect('/auth/login');
     }
   }
 

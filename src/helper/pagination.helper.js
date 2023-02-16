@@ -29,13 +29,13 @@ paginate = async (req, res, model) => {
             ]   
         })
 
-        return res.json({
+        return {
             result: result,
             page:page,
             limit: limit,
             totalPage: totalPage,
             totalRows: totalRows
-        });
+        };
 
     } catch (error) {
         // If Error
