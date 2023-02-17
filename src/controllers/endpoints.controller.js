@@ -8,6 +8,7 @@ index = async (req, res) => {
         // Datas
         const result = await Pagination.paginate(req, res, Route);
 
+        console.log(result.totalPage);
         // Return View
         return res.render('endpoints/index', {
             layout: 'layouts/main',

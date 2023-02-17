@@ -29,6 +29,21 @@
               <% } %>
             </tbody>
           </table>
+
+          <!-- Showing Button -->
+          <% if(endpoints.totalPage > 1) { %>
+            <div class="flex">
+              <% if(endpoints.page + 1 == 1) { %>
+                <a href="?page=<%= endpoints.page + 1 %>"><button class="btn btn-primary">></button></a>
+              <% }else if(endpoints.page + 1 < endpoints.totalPage){ %>
+                <a href="?page=<%= endpoints.page + 1 %>"><button class="btn btn-primary"><</button></a>
+                <a href="?page=<%= endpoints.page - 1 %>"><button class="btn btn-primary">></button></a>
+              <% }else{ %>
+                  <a href="?page=<%= endpoints.page - 1 %>"><button class="btn btn-primary"><</button></a>
+              <% } %>
+            </div>
+          <% } %>
+
         </div>
 
         <div class="card-footer text-muted">
