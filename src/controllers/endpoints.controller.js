@@ -8,7 +8,6 @@ index = async (req, res) => {
         // Datas
         const result = await Pagination.paginate(req, res, Route);
 
-        console.log(result.totalPage);
         // Return View
         return res.render('endpoints/index', {
             layout: 'layouts/main',
@@ -22,6 +21,22 @@ index = async (req, res) => {
     }
 }
 
+// Create
+create = async (req, res) => {
+    try {
+        // Return View
+        return res.render('endpoints/create', {
+            layout: 'layouts/main',
+            title: 'Endpoints'
+        });
+
+    } catch (error) {
+        // If Error
+        res.status(500).send({error});
+    }
+}
+
 module.exports = {
     index,
+    create
 }
