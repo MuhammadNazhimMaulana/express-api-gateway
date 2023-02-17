@@ -12,4 +12,7 @@ router.use(cookie, authenticateJWT);
 // Index
 router.get('/', endpointController.index);
 
+// Create
+router.get('/create', endpointController.create);
+
 module.exports = router;
