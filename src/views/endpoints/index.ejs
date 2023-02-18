@@ -9,6 +9,10 @@
           <div class="alert alert-success mt-3 ms-3 me-3 d-flex"><%= success %></div>
         <% } %>
 
+        <% if (destroy.length != 0) { %>
+          <div class="alert alert-danger mt-3 ms-3 me-3 d-flex"><%= destroy %></div>
+        <% } %>
+
         <% if (errors.length != 0) { %>
           <div class="alert alert-danger mt-3 ms-3 me-3 d-flex">
             <ul>
@@ -42,7 +46,7 @@
                   <td><%= endpoints.data[i].endpoint %></td>
                   <td>
                     <a href="/endpoint/<%= endpoints.data[i].id %>"><button class="btn btn-warning text-white">Update</button></a>
-                    <a href="#"><button class="btn btn-danger">Delete</button></a>
+                    <button class="btn btn-danger" onclick='del(this)' data-id="<%= endpoints.data[i].id %>" data-bs-toggle="modal" data-bs-target="#deleteRouteModal">Delete</button>
                   </td>
                 </tr>
               <% } %>
@@ -70,3 +74,39 @@
         </div>
     </div>
 </div>
+
+<!-- Modal -->
+<div class="modal fade" id="deleteRouteModal" tabindex="-1" aria-labelledby="deleteRouteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="deleteRouteModalLabel">Delete Route</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="/endpoint" method="post" id="del_form">
+        <div class="modal-body">
+              <label for="routes_name" class="form-label">Are You sure?</label>
+            </div>
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary">Yes</button>
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+            </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<!-- Ajax -->
+<script src="http://code.jquery.com/jquery-3.1.0.min.js"></script>
+
+<!-- Update Form -->
+<script>
+$(document).ready(function(){
+  // On Click
+  del = (data) => {
+    // Change value of action
+    $("#del_form").attr('action', '/endpoint/' + $(data).attr('data-id') + '?_method=DELETE');
+  }
+});
+
+</script>
