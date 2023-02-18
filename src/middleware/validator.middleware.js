@@ -11,15 +11,15 @@ const routeValidationRules = () => {
     // Custom Validation
     body('routes_name').custom(async (value) => {
 
-        // Cek Duplikatnya
-        const duplicate = await Route.findOne({ where: { routes_name: value } });
+      // Cek Duplikatnya
+      const duplicate = await Route.findOne({ where: { routes_name: value } });
 
-        // If there is a duplicate
-        if(duplicate){
-            throw new Error('Nama Route Sudah Ada');
-        }            
-
-        return true;
+      // If there is a duplicate
+      if(duplicate != 0 && duplicate.length == 1 && duplicate[0].id != req.params.id){
+        throw new Error('Route Sudah ada');
+      }   
+          
+      return true;
 
     })
   ]

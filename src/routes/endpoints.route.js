@@ -17,4 +17,8 @@ router.get('/', endpointController.index);
 router.get('/create', endpointController.create);
 router.post('/create', routeValidationRules(), validate, endpointController.createProcess);
 
+// Update
+router.get('/:id', endpointController.update);
+router.put('/:id', routeValidationRules(), validate, endpointController.updateProcess);
+
 module.exports = router;
