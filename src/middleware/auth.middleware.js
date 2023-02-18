@@ -24,7 +24,6 @@ const authenticateJWT = (req, res, next) => {
 const cookie = (req, res, next) => {
     const authToken = req.cookies['AuthToken'];
     req.user = authToken;
-    console.log(req.user);
     next();
 }
   

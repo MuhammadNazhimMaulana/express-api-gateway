@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="text-center mt-4">
+        <h1>Update Service</h1>
+    </div>
+    <div class="mt-5">
+        <form action="/endpoint/<%= data.id %>?_method=PUT" method="post">
+            <div class="mb-3">
+              <label for="routes_name" class="form-label">Route Name</label>
+              <input type="text" class="form-control" id="routes_name" name="routes_name" value="<%= data.routes_name %>" required>
+            </div>
+            <div class="mb-3">
+              <label for="endpoint" class="form-label">Endpoint</label>
+              <input type="text" class="form-control" id="endpoint" name="endpoint" value="<%= data.endpoint %>" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update</button>
+        </form>
+    </div>
+</div>

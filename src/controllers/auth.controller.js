@@ -32,7 +32,6 @@ loginProcess = async (req, res) => {
         // Hash Password
         let hash = CryptoJS.SHA3(req.body.password);
 
-        console.log(hash.toString());
         // Checking Password
         if(req.body.email != user.email || user.password != hash.toString())
         {
