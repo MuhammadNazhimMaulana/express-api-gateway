@@ -7,6 +7,8 @@ const {setupProxies} = require("./config/proxy.config");
 const path = require('path');
 const expressLayouts = require('express-ejs-layouts');
 const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
 
 // Env
 require('dotenv').config();
@@ -27,6 +29,16 @@ setupLogging(app);
 
 // Use Cookie Parser
 app.use(cookieParser());
+
+// Use Session
+app.use(session({
+    secret:'geeksforgeeks',
+    saveUninitialized: true,
+    resave: true
+}));
+
+// Flash Session
+app.use(flash());
 
 // Set up method override
 app.use(methodOverride('_method'));

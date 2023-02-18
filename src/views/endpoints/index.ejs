@@ -4,6 +4,21 @@
           Endpoints
         </div>
 
+        <!-- Check Flash -->
+        <% if (success.length != 0) { %>
+          <div class="alert alert-success mt-3 ms-3 me-3 d-flex"><%= success %></div>
+        <% } %>
+
+        <% if (errors.length != 0) { %>
+          <div class="alert alert-danger mt-3 ms-3 me-3 d-flex">
+            <ul>
+              <% for(let i = 0; i < errors.length; i++) { %>
+                <li><%= errors[i].msg %></li>
+              <% } %>
+            </ul>
+          </div>
+        <% } %>
+
         <div class="d-flex ms-3 mt-3">
           <a href="/endpoint/create"><button class="btn btn-primary text-white">Create</button></a>
         </div>
