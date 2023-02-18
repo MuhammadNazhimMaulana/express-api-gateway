@@ -2,6 +2,9 @@ const Route = require('../models/endpoints.model');
 const Pagination = require('../helper/pagination.helper');
 const {Op} = require("sequelize");
 
+// Validation
+const { validationResult } = require('express-validator');
+
 // Index
 index = async (req, res) => {
     try {
@@ -12,6 +15,8 @@ index = async (req, res) => {
         return res.render('endpoints/index', {
             layout: 'layouts/main',
             endpoints: result,
+            success: req.flash('success'),
+            errors: req.flash('errors'),
             title: 'Endpoints'
         });
 
@@ -21,7 +26,7 @@ index = async (req, res) => {
     }
 }
 
-// Create
+// Create View
 create = async (req, res) => {
     try {
         // Return View
@@ -36,7 +41,42 @@ create = async (req, res) => {
     }
 }
 
+// Create Process
+createProcess = async (req, res) => {
+    try {
+        // Konstanta errors
+        const errors = validationResult(req);
+
+        // Kalau error
+        if(errors.isEmpty())
+        {
+            // Get Data
+            let data = {
+                routes_name: req.body.routes_name,
+                endpoint: req.body.endpoint
+            }
+            
+            // Process Create
+            await Route.create(data);
+
+            // Flash Session
+            req.flash('success', 'Endpoint Added');
+        }else{
+            // Flash Session
+            req.flash('errors', errors.errors);
+        }
+
+        // Return      
+        res.redirect('/endpoint');
+
+    } catch (error) {
+        // If Error
+        res.status(500).send({error});
+    }
+}
+
 module.exports = {
     index,
-    create
+    create,
+    createProcess
 }
