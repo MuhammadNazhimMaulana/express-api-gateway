@@ -16,6 +16,7 @@ index = async (req, res) => {
             layout: 'layouts/main',
             endpoints: result,
             success: req.flash('success'),
+            destroy: req.flash('destroy'),
             errors: req.flash('errors'),
             title: 'Endpoints'
         });
@@ -95,13 +96,13 @@ update = async (req, res) => {
     }
 }
 
-// Create Process
+// Update Process
 updateProcess = async (req, res) => {
     try {
         // Konstanta errors
         const errors = validationResult(req);
 
-        // Kalau error
+        // Kalau tidak ada error
         if(errors.isEmpty())
         {
             // Get Data
@@ -110,7 +111,7 @@ updateProcess = async (req, res) => {
                 endpoint: req.body.endpoint
             }
             
-            // Process Create
+            // Process Update
             await Route.update(data, { where: { id: req.params.id } });
 
             // Flash Session
@@ -129,10 +130,30 @@ updateProcess = async (req, res) => {
     }
 }
 
+// Delete Process
+deleteProcess = async (req, res) => {
+    try {
+        
+        // Process Delete
+        await Route.destroy({ where: { id: req.params.id } });
+
+        // Flash Session
+        req.flash('destroy', 'Endpoint Deleted');
+
+        // Return      
+        res.redirect('/endpoint');
+
+    } catch (error) {
+        // If Error
+        res.status(500).send({error});
+    }
+}
+
 module.exports = {
     index,
     create,
     update,
     createProcess,
-    updateProcess
+    updateProcess,
+    deleteProcess
 }

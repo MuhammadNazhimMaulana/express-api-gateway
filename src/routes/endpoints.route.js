@@ -21,4 +21,7 @@ router.post('/create', routeValidationRules(), validate, endpointController.crea
 router.get('/:id', endpointController.update);
 router.put('/:id', routeValidationRules(), validate, endpointController.updateProcess);
 
+// Delete
+router.delete('/:id', endpointController.deleteProcess);
+
 module.exports = router;
