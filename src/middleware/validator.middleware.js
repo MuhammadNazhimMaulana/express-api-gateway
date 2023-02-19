@@ -3,8 +3,8 @@ const { body, validationResult, check } = require('express-validator');
 // Models
 const Route = require('../models/endpoints.model');
 
-// Validation For Post
-const routeValidationRules = () => {
+// Validation For Create
+const createRouteValidationRules = () => {
   return [
     check('endpoint', 'Endpoint Tidak Valid').isString(),
 
@@ -16,7 +16,29 @@ const routeValidationRules = () => {
       
       // If there is a duplicate
       if(duplicate){
-        if(duplicate.length == 1 && duplicate[0].id != req.params.id){
+          throw new Error('Route Sudah ada');
+      }   
+          
+      return true;
+
+    })
+  ]
+}
+
+// Validation For Update
+const updateRouteValidationRules = () => {
+  return [
+    check('endpoint', 'Endpoint Tidak Valid').isString(),
+
+    // Custom Validation
+    body('routes_name').custom(async (value, { req }) => {
+
+      // Cek Duplikatnya
+      const duplicate = await Route.findOne({ where: { routes_name: value } });
+
+      // If there is a duplicate
+      if(duplicate){
+        if(duplicate.id != req.params.id){
           throw new Error('Route Sudah ada');
         }
       }   
@@ -41,6 +63,7 @@ const validate = (req, res, next) => {
 
 // Exporting modules
 module.exports = {
-  routeValidationRules,
+  createRouteValidationRules,
+  updateRouteValidationRules,
   validate
 }
