@@ -7,7 +7,7 @@ const router = express.Router();
 const mainController = require('../controllers/main.controller');
 
 // Use JWT Check
-// router.use(cookie, authenticateJWT);
+router.use(cookie, authenticateJWT);
 
 // Index
 router.get('/', mainController.index);
