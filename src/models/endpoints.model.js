@@ -16,7 +16,3 @@ const Routes = db.define('tbl_endpoints', {
 )
 
 module.exports = Routes;
-
-(async() => {
-    await db.sync();
-})();

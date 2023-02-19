@@ -24,7 +24,3 @@ const Users = db.define('tbl_users', {
 )
 
 module.exports = Users;
-
-(async() => {
-    await db.sync();
-})();
