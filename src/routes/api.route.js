@@ -28,5 +28,5 @@ const ROUTES = [
         }
     }
 ]
-
+ 
 exports.ROUTES = ROUTES;
