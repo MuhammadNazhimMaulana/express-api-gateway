@@ -14,4 +14,8 @@ const db = new Sequelize(
   }
 );
 
+(async() => {
+  await db.sync({ force: true });
+})();
+
 module.exports = db;

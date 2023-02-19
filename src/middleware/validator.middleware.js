@@ -13,10 +13,12 @@ const routeValidationRules = () => {
 
       // Cek Duplikatnya
       const duplicate = await Route.findOne({ where: { routes_name: value } });
-
+      
       // If there is a duplicate
-      if(duplicate != 0 && duplicate.length == 1 && duplicate[0].id != req.params.id){
-        throw new Error('Route Sudah ada');
+      if(duplicate){
+        if(duplicate.length == 1 && duplicate[0].id != req.params.id){
+          throw new Error('Route Sudah ada');
+        }
       }   
           
       return true;
