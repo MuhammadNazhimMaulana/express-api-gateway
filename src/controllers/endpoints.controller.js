@@ -27,6 +27,44 @@ index = async (req, res) => {
     }
 }
 
+// All
+getAll = async (req, res) => {
+    try {
+        // Preparing Array
+        let data = [];
+
+        // Datas
+        const result = await Route.findAll();
+
+        // Looping
+        for(const val of result) {
+            data.push({
+                url: val.endpoint,
+                auth: false,
+                creditCheck: false,
+                rateLimit: {
+                    windowMs: 15 * 60 * 1000,
+                    max: 5
+                },
+                proxy: {
+                    target: "https://www.google.com",
+                    changeOrigin: true,
+                    pathRewrite: {
+                        [`^${val.endpoint}`]: '',
+                    },
+                }
+            })
+        }
+
+        // Return View
+        return (data);
+
+    } catch (error) {
+        // If Error
+        console.log(error);
+    }
+}
+
 // Create View
 create = async (req, res) => {
     try {
@@ -151,6 +189,7 @@ deleteProcess = async (req, res) => {
 
 module.exports = {
     index,
+    getAll,
     create,
     update,
     createProcess,
