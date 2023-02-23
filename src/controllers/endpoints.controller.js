@@ -1,6 +1,9 @@
 const Route = require('../models/endpoints.model');
 const Pagination = require('../helper/pagination.helper');
 const {Op} = require("sequelize");
+const {setupRateLimit} = require("../config/ratelimit.config");
+const {setupProxies} = require("../config/proxy.config");
+const app = require("../app");
 
 // Validation
 const { validationResult } = require('express-validator');
@@ -10,6 +13,15 @@ index = async (req, res) => {
     try {
         // Datas
         const result = await Pagination.paginate(req, res, Route);
+
+        // Redirects Data
+        const redirects = await getAll();
+        
+        // Rate Limit
+        setupRateLimit(req.app, redirects);
+
+        // Routes Gateway
+        setupProxies(req.app, redirects);
 
         // Return View
         return res.render('endpoints/index', {
@@ -22,6 +34,7 @@ index = async (req, res) => {
         });
 
     } catch (error) {
+        console.log(error);
         // If Error
         res.status(500).send({error});
     }
